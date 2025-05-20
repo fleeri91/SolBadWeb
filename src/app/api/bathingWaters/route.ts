@@ -4,9 +4,9 @@ import {
   WatersAndAdvisory,
 } from '@/types/HAV/HAVBathingWater';
 import axios from 'axios';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const response = await axios.get<HAVBathingWaterRoot>(
       'https://gw-test.havochvatten.se/external-public/bathing-waters/v2/bathing-waters'
