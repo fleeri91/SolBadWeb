@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { SWRConfig } from 'swr';
+import { SWRConfig } from 'swr'
 
-import { fetcher } from '@/api';
+import { fetcher } from '@/api'
 
 export const SWRProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -13,5 +13,5 @@ export const SWRProvider = ({ children }: { children: React.ReactNode }) => {
     >
       {children}
     </SWRConfig>
-  );
-};
+  )
+}
