@@ -2,6 +2,9 @@
 
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import useSWR from 'swr'
+
+import HomePageLoading from '@/app/loading'
+
 import { Bath } from '@/types/BathingWater'
 
 const containerStyle = {
@@ -23,7 +26,7 @@ const Map = () => {
   })
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <HomePageLoading />
   }
 
   if (error) {
