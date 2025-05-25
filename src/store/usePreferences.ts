@@ -1,27 +1,23 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-type Coordinates = {
-  latitude: number
-  longitude: number
-}
+import { Preferences } from '@/types/Preferences'
 
 type PreferencesState = {
-  currentLocation: {
-    data: Coordinates | null
-    details: unknown | null
-  }
-  distance: number
+  preferences: Preferences
 }
 
 type PreferencesActions = {
-  setCurrentLocation: (data: Coordinates, details?: unknown | null) => void
-  setDistance: (value: number) => void
+  setPreferences: (prefs: Partial<Preferences>) => void
 }
 
-const initialState: PreferencesState = {
-  currentLocation: { data: null, details: null },
+const initialPreferences: Preferences = {
   distance: 50,
+  position: {
+    latitude: 0,
+    longitude: 0,
+  },
+  transport: 'Car',
 }
 
 export const usePreferencesStore = create<
@@ -29,10 +25,14 @@ export const usePreferencesStore = create<
 >()(
   persist(
     (set) => ({
-      ...initialState,
-      setCurrentLocation: (data, details = null) =>
-        set({ currentLocation: { data, details } }),
-      setDistance: (value) => set({ distance: value }),
+      preferences: initialPreferences,
+      setPreferences: (prefs) =>
+        set((state) => ({
+          preferences: {
+            ...state.preferences,
+            ...prefs,
+          },
+        })),
     }),
     {
       name: 'preferences-storage',
