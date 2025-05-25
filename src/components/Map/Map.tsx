@@ -42,7 +42,12 @@ const Map = () => {
     <LoadScript
       googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}
     >
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        options={{ disableDefaultUI: true }}
+      >
         {data &&
           data.map((item, index) => (
             <Marker
