@@ -1,10 +1,11 @@
+import axios from 'axios'
+import { NextResponse } from 'next/server'
+
 import { Bath } from '@/types/BathingWater'
 import {
   HAVBathingWaterRoot,
   WatersAndAdvisory,
 } from '@/types/HAV/HAVBathingWater'
-import axios from 'axios'
-import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {

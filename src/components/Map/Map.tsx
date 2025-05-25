@@ -1,9 +1,4 @@
-'use client'
-
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
-import useSWR from 'swr'
-
-import HomePageLoading from '@/app/loading'
 
 import { Bath } from '@/types/BathingWater'
 
@@ -17,30 +12,15 @@ const center = {
   lng: 15.5866422,
 }
 
-const Map = () => {
-  const { data, isLoading, error, mutate } = useSWR<Bath[]>(`/bathingWaters`, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    errorRetryCount: 3,
-    errorRetryInterval: 5000,
-  })
+interface MapProps {
+  locations: Bath[]
+}
 
-  if (isLoading) {
-    return <HomePageLoading />
-  }
-
-  if (error) {
-    return (
-      <div>
-        <h1>error</h1>
-        <button onClick={() => mutate()}>Try again</button>
-      </div>
-    )
-  }
-
+const Map = ({ locations }: MapProps) => {
   return (
     <LoadScript
       googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? ''}
+      language="sv"
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
@@ -48,8 +28,8 @@ const Map = () => {
         zoom={10}
         options={{ disableDefaultUI: true }}
       >
-        {data &&
-          data.map((item, index) => (
+        {locations &&
+          locations.map((item, index) => (
             <Marker
               key={index}
               position={{
